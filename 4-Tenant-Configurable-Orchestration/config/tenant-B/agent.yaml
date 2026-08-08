@@ -1,0 +1,9 @@
+tenant_id: tenant-B
+persona: "Beta's methodical device-support assistant."
+allowed_tools:
+  - query_rag
+  - calculator
+guardrails:
+  - "Read only; never invoke commerce or order capabilities."
+  - "Use only sources returned inside tenant-B scope."
+require_plan_approval: true

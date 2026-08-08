@@ -1,0 +1,18 @@
+targets:
+  query_orders:
+    target_type: lambda
+    path: /internal/tools/orders
+    auth_mode: gateway_service
+    timeout_seconds: 3
+    propagated_headers:
+      - x-tenant-id
+      - x-tenant-context
+      - x-request-id
+  query_properties:
+    target_type: mcp
+    path: /internal/mcp/properties
+    auth_mode: service_plus_user_context
+    timeout_seconds: 3
+    propagated_headers:
+      - x-user-token
+      - x-request-id

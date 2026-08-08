@@ -1,0 +1,4 @@
+{"case_id":"b-reset-followup","tenant_id":"tenant-B","question":"What does it remove?","history":["User: I need to perform a factory reset.","Assistant: Hold the recessed reset button until the light flashes amber."],"expected_sections":["Soft and factory reset"],"expected_terms":["Wi-Fi settings","paired accounts"]}
+{"case_id":"b-update-preconditions","tenant_id":"tenant-B","question":"What are the firmware update preconditions?","expected_sections":["Firmware updates"],"expected_terms":["Wi-Fi","50 percent"]}
+{"case_id":"b-pairing","tenant_id":"tenant-B","question":"What should I do after pairing fails three times?","expected_sections":["Connectivity"],"expected_terms":["soft reset","trying again"]}
+{"case_id":"b-network","tenant_id":"tenant-B","question":"Which Wi-Fi band must setup use?","expected_sections":["Connectivity"],"expected_terms":["2.4 GHz"]}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#message-input">Skip to message</a>
+  <main class="workspace" id="workspace" hidden>
+    <aside class="session-panel" aria-label="Conversations">
+      <header class="product-mark">
+        <span class="product-glyph" aria-hidden="true">DEMO</span>
+        <div>
+          <h1 class="logo">Welcome !</h1>
+        </div>
+      </header>
+      <button class="new-chat" id="new-chat" type="button">New conversation</button>
+      <nav id="sessions" aria-label="Saved conversations"></nav>
+      <section class="identity-card" aria-label="Verified identity">
+        <p class="eyebrow">Verified context</p>
+        <div class="identity-lock tenant-lock">
+          <span class="lock-mark" aria-hidden="true"></span>
+          <span class="identity-lock-copy">
+            <span class="scope-label">Tenant scope</span>
+            <strong id="identity-tenant"></strong>
+          </span>
+        </div>
+        <div class="identity-lock user-lock">
+          <span class="lock-mark" aria-hidden="true"></span>
+          <span class="identity-lock-copy">
+            <span class="scope-label">User scope</span>
+            <strong id="identity-name"></strong>
+          </span>
+        </div>
+        <button class="text-button" id="logout" type="button">Sign out</button>
+      </section>
+    </aside>
+
+    <section class="chat-panel" aria-labelledby="conversation-title">
+      <header class="chat-header">
+        <div>
+          <p class="eyebrow">Multi-Tenant MCP Tool Gateway RAG Chatbot Demo</p>
+          <h2 id="conversation-title">New conversation</h2>
+        </div>
+        <div class="header-isolation">
+          <span class="ready-indicator"><i aria-hidden="true"></i> isolated context</span>
+          <span class="session-isolation">
+            <span class="session-isolation-label">Session isolation</span>
+            <span class="scope-envelope" id="active-session-scope">Scope pending</span>
+          </span>
+        </div>
+      </header>
+      <div class="messages" id="messages" aria-live="polite">
+        <article class="message assistant">
+          <span class="speaker">Assistant</span>
+          <p>Ask about your tenant’s policy, an order record, or a visible property. Your verified account sets the data boundary.</p>
+        </article>
+      </div>
+      <form class="composer" id="chat-form">
+        <label for="message-input">Message</label>
+        <div class="composer-row">
+          <textarea id="message-input" name="message" rows="2" maxlength="4000" placeholder="Begin by typing here..." required></textarea>
+          <button type="submit" id="send">Send</button>
+        </div>
+        <p class="composer-note" id="chat-status" role="status">AI can make mistakes. Always double-check important information.</p>
+      </form>
+    </section>
+
+    <aside class="trust-panel" aria-label="Request route">
+      <p class="eyebrow">Trust Gateway rail (Independent of the model). Activated for everychat message</p>
+      <p>The model never sees or interacts with user credentials nor determines the scope.
+</p>
+      <ol class="trust-rail" id="trust-rail">
+        <li data-node="identity">
+          <span class="trust-node-icon" aria-hidden="true">
+            <svg class="trust-icon trust-icon-default bi bi-people-fill" viewBox="0 0 16 16" focusable="false">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+            </svg>
+            <svg class="trust-icon trust-icon-complete bi bi-person-bounding-box" viewBox="0 0 16 16" focusable="false">
+              <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/>
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            </svg>
+          </span>
+          <div><strong>Identity</strong><span class="trust-node-description">Verified identity from login route</span></div>
+        </li>
+        <li data-node="rag">
+          <span class="trust-node-icon" aria-hidden="true">
+            <svg class="trust-icon trust-icon-default bi bi-collection" viewBox="0 0 16 16" focusable="false">
+              <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5z"/>
+            </svg>
+            <svg class="trust-icon trust-icon-complete bi bi-bullseye" viewBox="0 0 16 16" focusable="false">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+              <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+              <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/>
+              <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+            </svg>
+          </span>
+          <div><strong>Tenant RAG</strong><span class="trust-node-description">Retrieval is limited to the tenant's specific knowledge base</span></div>
+        </li>
+        <li data-node="gateway">
+          <span class="trust-node-icon" aria-hidden="true">
+            <svg class="trust-icon trust-icon-default bi bi-arrow-left-right" viewBox="0 0 16 16" focusable="false">
+              <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+            </svg>
+            <svg class="trust-icon trust-icon-complete bi bi-shield-lock-fill" viewBox="0 0 16 16" focusable="false">
+              <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"/>
+            </svg>
+          </span>
+          <div><strong>MCP gateway</strong><span class="trust-node-description">Tennat scoped capability token issued</span></div>
+        </li>
+        <li data-node="target">
+          <span class="trust-node-icon" aria-hidden="true">
+            <svg class="trust-icon trust-icon-default bi bi-patch-question" viewBox="0 0 16 16" focusable="false">
+              <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.7 1.7 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745"/>
+              <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+              <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0"/>
+            </svg>
+            <svg class="trust-icon trust-icon-complete bi bi-crosshair" viewBox="0 0 16 16" focusable="false">
+              <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+            </svg>
+          </span>
+          <div><strong>Scoped target</strong><span class="trust-node-description">Only tenant specific content is retrieved and passed to the model</span></div>
+        </li>
+      </ol>
+      <section class="trace-card">
+        <p class="eyebrow">Last trace</p>
+        <dl>
+          <div><dt>Request</dt><dd id="trace-request">—</dd></div>
+          <div><dt>Tools</dt><dd id="trace-tools">None</dd></div>
+          <div><dt>Sources</dt><dd id="trace-sources">None</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </main>
+
+  <section class="login-shell" id="login-shell" aria-labelledby="login-title">
+    <div class="login-route" aria-hidden="true">
+      <div class="login-route-step">
+        <span>Auth / login</span>
+        <hr>
+        <small>Validates credentials and issues a signed JWT — the signed identity.</small>
+      </div>
+      <i></i>
+      <div class="login-route-step">
+        <span>Agent / API handler</span>
+        <hr>
+        <small>Verifies the JWT and extracts the tenant claim. The model never sees or controls it.</small>
+      </div>
+      <i></i>
+      <div class="login-route-step">
+        <span>MCP gateway</span>
+        <hr>
+        <small>Strips raw credentials and mints a short-lived capability token scoped to the tenant.</small>
+      </div>
+      <i></i>
+      <div class="login-route-step">
+        <span>Data store</span>
+        <hr>
+        <small>Enforces the read boundary — only returns records belonging to that tenant prefix.</small>
+      </div>
+    </div>
+    <form class="login-card" id="login-form">
+      <h1 id="login-title">Multi-Tenant MCP Tool Gateway RAG Chatbot Demo </h1>
+      <p class="login-copy">Choose a demo account</p>
+      <label for="username">Select account ⬇️</label>
+      <select id="username" name="username">
+        <option value="alice@tenant-a.demo">Alice · payments store</option>
+        <option value="carol@tenant-a.demo">Carol · payments store</option>
+        <option value="bob@tenant-b.demo">Bob · device support</option>
+        <option value="jake@tenant-b.demo">Jake · device support</option>
+      </select>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button type="submit">Login 🔐</button>
+      <p class="form-error" id="login-error" role="alert"></p>
+    </form>
+  </section>
+</body>
+</html>

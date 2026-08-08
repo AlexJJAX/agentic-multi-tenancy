@@ -1,0 +1,49 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+wheels/
+*.egg-info
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv
+
+# Secrets
+.env
+**/cookies.txt
+**/data/secrets.json
+
+# SQLite databases
+**/*.sqlite3
+**/*.sqlite3-shm
+**/*.sqlite3-wal
+
+# ChromaDB persistent storage
+.chroma/
+**/data/chroma/
+.local/
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
+.playwright-cli/
+
+# Browser test artifacts
+**/playwright-report/
+**/test-results/
+output/playwright/
+
+# OS files
+.DS_Store
+Thumbs.db
+

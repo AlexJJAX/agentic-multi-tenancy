@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evaluation>
+  <qa_pair>
+    <question>Using only records visible to the authenticated Tenant A account, compare every order amount. Which order has the smallest amount? Return only its order ID.</question>
+    <answer>A-1002</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Inspect all visible Tenant A order records and determine which one was updated most recently. Return only its order ID.</question>
+    <answer>A-1003</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Among the authenticated tenant's visible properties, find the record that is neither active nor inactive. Return only its city.</question>
+    <answer>Liverpool</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the visible Tenant A properties in active status. Which property comes first by property ID? Return only the property ID.</question>
+    <answer>PA-101</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Retrieve every visible Tenant A order, sum the monetary amounts without currency conversion, and format the result with two decimal places.</question>
+    <answer>241.50</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Inspect all visible Tenant A properties and count their distinct cities. Return only the integer.</question>
+    <answer>3</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>For Tenant A, count orders whose status is paid, refunded, or returned. Separately count properties whose status is active or inactive. Are the counts equal? Return True or False.</question>
+    <answer>True</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the earliest and latest update dates across all visible Tenant A orders. How many calendar days separate them? Return only the integer.</question>
+    <answer>6</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Find the visible Tenant A order still waiting on a refund and the property currently under maintenance. Return their IDs in order-id/property-id format.</question>
+    <answer>A-1002/PA-102</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Among visible Tenant A orders that have reached paid or refunded status, which has the larger amount? Return only the status of that record.</question>
+    <answer>refunded</answer>
+  </qa_pair>
+</evaluation>

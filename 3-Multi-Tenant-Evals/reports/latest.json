@@ -1,0 +1,327 @@
+{
+  "methodology": {
+    "judge": "deterministic extractive answer test double",
+    "retriever": "deterministic token-hash embedding test double",
+    "top_k": 1,
+    "metrics": [
+      "retrieval_recall",
+      "answer_coverage",
+      "faithfulness",
+      "isolation_pass_rate"
+    ]
+  },
+  "baseline": {
+    "strategy": "raw-query",
+    "top_k": 1,
+    "per_tenant": {
+      "tenant-A": {
+        "cases": 4,
+        "retrieval_recall": 0.5,
+        "answer_coverage": 0.5,
+        "faithfulness": 1.0,
+        "isolation_pass_rate": 1.0
+      },
+      "tenant-B": {
+        "cases": 4,
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_pass_rate": 1.0
+      }
+    },
+    "overall": {
+      "cases": 8,
+      "retrieval_recall": 0.75,
+      "answer_coverage": 0.75,
+      "faithfulness": 1.0,
+      "isolation_pass_rate": 1.0
+    },
+    "cases": [
+      {
+        "case_id": "a-refund-followup",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "How long does it take?",
+        "retrieved_chunk_ids": [
+          "tenant-A:f906fea77803dcfb"
+        ],
+        "retrieved_sections": [
+          "Physical returns"
+        ],
+        "answer": "Unused physical items in their original packaging can be returned within 30 days of delivery.\nA return authorisation number is required. Original shipping is refundable only when Acme\ncaused the fulfilment error.",
+        "retrieval_recall": 0.0,
+        "answer_coverage": 0.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-return-window",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "What condition and window apply to a physical return?",
+        "retrieved_chunk_ids": [
+          "tenant-A:f906fea77803dcfb"
+        ],
+        "retrieved_sections": [
+          "Physical returns"
+        ],
+        "answer": "Unused physical items in their original packaging can be returned within 30 days of delivery.\nA return authorisation number is required. Original shipping is refundable only when Acme\ncaused the fulfilment error.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-subscription",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "Can I get a subscription refund after using a premium feature?",
+        "retrieved_chunk_ids": [
+          "tenant-A:4755cbfcfe70cca9"
+        ],
+        "retrieved_sections": [
+          "Subscription refunds"
+        ],
+        "answer": "A subscription charge can be refunded within 14 days when no premium feature was used during\nthe billing period. Partial-month refunds are unavailable after that window.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-payment-methods",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "Which bank transfer payment method is accepted?",
+        "retrieved_chunk_ids": [
+          "tenant-A:2c266274b5320d4f"
+        ],
+        "retrieved_sections": [
+          "Duplicate payments and refunds"
+        ],
+        "answer": "Do not submit another payment when a duplicate charge appears. Pending authorisations can\ndisappear within 24 hours. A settled duplicate payment is refundable, and an approved refund\nreturns to the original payment method within five business days.",
+        "retrieval_recall": 0.0,
+        "answer_coverage": 0.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-reset-followup",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "What does it remove?",
+        "retrieved_chunk_ids": [
+          "tenant-B:e98f18c80ff6c726"
+        ],
+        "retrieved_sections": [
+          "Soft and factory reset"
+        ],
+        "answer": "For a soft reset, hold the power button for 10 seconds and wait for a solid blue light. For a\nfactory reset, hold the recessed reset button for 15 seconds until the light flashes amber.\nA factory reset removes saved Wi-Fi settings and paired accounts.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-update-preconditions",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "What are the firmware update preconditions?",
+        "retrieved_chunk_ids": [
+          "tenant-B:3983f8e31cc35d0c"
+        ],
+        "retrieved_sections": [
+          "Firmware updates"
+        ],
+        "answer": "Before an update, connect to Wi-Fi and charge the battery to at least 50 percent. From the\ndevice menu, open Settings, choose Device, and select Update Firmware. The USB tool supports\na manual firmware update when the menu is unavailable.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-pairing",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "What should I do after pairing fails three times?",
+        "retrieved_chunk_ids": [
+          "tenant-B:1eea86cb18f12a4c"
+        ],
+        "retrieved_sections": [
+          "Connectivity"
+        ],
+        "answer": "The setup network must use 2.4 GHz Wi-Fi, and the device should remain within 10 metres of the\nrouter. If pairing fails three times, perform a soft reset before trying again.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-network",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "Which Wi-Fi band must setup use?",
+        "retrieved_chunk_ids": [
+          "tenant-B:1eea86cb18f12a4c"
+        ],
+        "retrieved_sections": [
+          "Connectivity"
+        ],
+        "answer": "The setup network must use 2.4 GHz Wi-Fi, and the device should remain within 10 metres of the\nrouter. If pairing fails three times, perform a soft reset before trying again.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      }
+    ]
+  },
+  "candidate": {
+    "strategy": "contextual-rewrite",
+    "top_k": 1,
+    "per_tenant": {
+      "tenant-A": {
+        "cases": 4,
+        "retrieval_recall": 0.75,
+        "answer_coverage": 0.75,
+        "faithfulness": 1.0,
+        "isolation_pass_rate": 1.0
+      },
+      "tenant-B": {
+        "cases": 4,
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_pass_rate": 1.0
+      }
+    },
+    "overall": {
+      "cases": 8,
+      "retrieval_recall": 0.875,
+      "answer_coverage": 0.875,
+      "faithfulness": 1.0,
+      "isolation_pass_rate": 1.0
+    },
+    "cases": [
+      {
+        "case_id": "a-refund-followup",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "User: I can see a settled duplicate charge. Assistant: An approved duplicate-payment refund returns to the original method. How long does it take?",
+        "retrieved_chunk_ids": [
+          "tenant-A:2c266274b5320d4f"
+        ],
+        "retrieved_sections": [
+          "Duplicate payments and refunds"
+        ],
+        "answer": "Do not submit another payment when a duplicate charge appears. Pending authorisations can\ndisappear within 24 hours. A settled duplicate payment is refundable, and an approved refund\nreturns to the original payment method within five business days.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-return-window",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "What condition and window apply to a physical return?",
+        "retrieved_chunk_ids": [
+          "tenant-A:f906fea77803dcfb"
+        ],
+        "retrieved_sections": [
+          "Physical returns"
+        ],
+        "answer": "Unused physical items in their original packaging can be returned within 30 days of delivery.\nA return authorisation number is required. Original shipping is refundable only when Acme\ncaused the fulfilment error.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-subscription",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "Can I get a subscription refund after using a premium feature?",
+        "retrieved_chunk_ids": [
+          "tenant-A:4755cbfcfe70cca9"
+        ],
+        "retrieved_sections": [
+          "Subscription refunds"
+        ],
+        "answer": "A subscription charge can be refunded within 14 days when no premium feature was used during\nthe billing period. Partial-month refunds are unavailable after that window.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "a-payment-methods",
+        "tenant_id": "tenant-A",
+        "retrieval_query": "Which bank transfer payment method is accepted?",
+        "retrieved_chunk_ids": [
+          "tenant-A:2c266274b5320d4f"
+        ],
+        "retrieved_sections": [
+          "Duplicate payments and refunds"
+        ],
+        "answer": "Do not submit another payment when a duplicate charge appears. Pending authorisations can\ndisappear within 24 hours. A settled duplicate payment is refundable, and an approved refund\nreturns to the original payment method within five business days.",
+        "retrieval_recall": 0.0,
+        "answer_coverage": 0.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-reset-followup",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "User: I need to perform a factory reset. Assistant: Hold the recessed reset button until the light flashes amber. What does it remove?",
+        "retrieved_chunk_ids": [
+          "tenant-B:e98f18c80ff6c726"
+        ],
+        "retrieved_sections": [
+          "Soft and factory reset"
+        ],
+        "answer": "For a soft reset, hold the power button for 10 seconds and wait for a solid blue light. For a\nfactory reset, hold the recessed reset button for 15 seconds until the light flashes amber.\nA factory reset removes saved Wi-Fi settings and paired accounts.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-update-preconditions",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "What are the firmware update preconditions?",
+        "retrieved_chunk_ids": [
+          "tenant-B:3983f8e31cc35d0c"
+        ],
+        "retrieved_sections": [
+          "Firmware updates"
+        ],
+        "answer": "Before an update, connect to Wi-Fi and charge the battery to at least 50 percent. From the\ndevice menu, open Settings, choose Device, and select Update Firmware. The USB tool supports\na manual firmware update when the menu is unavailable.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-pairing",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "What should I do after pairing fails three times?",
+        "retrieved_chunk_ids": [
+          "tenant-B:1eea86cb18f12a4c"
+        ],
+        "retrieved_sections": [
+          "Connectivity"
+        ],
+        "answer": "The setup network must use 2.4 GHz Wi-Fi, and the device should remain within 10 metres of the\nrouter. If pairing fails three times, perform a soft reset before trying again.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      },
+      {
+        "case_id": "b-network",
+        "tenant_id": "tenant-B",
+        "retrieval_query": "Which Wi-Fi band must setup use?",
+        "retrieved_chunk_ids": [
+          "tenant-B:1eea86cb18f12a4c"
+        ],
+        "retrieved_sections": [
+          "Connectivity"
+        ],
+        "answer": "The setup network must use 2.4 GHz Wi-Fi, and the device should remain within 10 metres of the\nrouter. If pairing fails three times, perform a soft reset before trying again.",
+        "retrieval_recall": 1.0,
+        "answer_coverage": 1.0,
+        "faithfulness": 1.0,
+        "isolation_passed": true
+      }
+    ]
+  }
+}

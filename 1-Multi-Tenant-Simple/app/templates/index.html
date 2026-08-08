@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Tenant RAG Chatbot Demo — Tenant-isolated knowledge base Q&A">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/styles.css?v={{ styles_version }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ─── Login Modal ─── -->
+    <div id="login-overlay" class="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
+        <div class="login-modal">
+            <div class="login-header">
+                <p class="login-welcome">Pooled Multi-Tenant Architecture RAG Chatbot <br> <span>Simple Demo</span></p>
+                <span class="login-icon">🔐</span>
+                <h2 id="login-title">Sign In</h2>
+                <p class="login-subtitle">Choose demo account credentials from the list below.</p>
+            </div>
+
+            <form id="login-form" class="login-form" method="post" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="login-username">Username</label>
+                    <input
+                        id="login-username"
+                        name="username"
+                        type="text"
+                        class="form-input"
+                        placeholder="e.g. user-a"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input
+                        id="login-password"
+                        name="password"
+                        type="password"
+                        class="form-input"
+                        placeholder="e.g. password-a"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+                <div id="login-error" class="login-error hidden"></div>
+                <button type="submit" id="login-submit-btn" class="btn btn-primary btn-full login-submit">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="login-hint">
+                <p>Demo accounts credentials:</p>
+                <code>user-a / password-a</code> → Tenant A<br>
+                <code>user-b / password-b</code> → Tenant B<br>
+                <code>admin / admin-secret</code> → Admin
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">
+                    <span class="title-icon">🔒</span>
+                    Pooled Multi-Tenant RAG Chatbot
+                </h1>
+                <span class="app-badge">DEMO</span>
+            </div>
+            <div class="header-right">
+                <span id="auth-user-badge" class="auth-user-badge hidden"></span>
+                <button id="reindex-btn" class="btn btn-outline hidden" title="Rebuild vector index">
+                    <span class="btn-icon">🔄</span>
+                    Reindex
+                </button>
+                <button id="logout-btn" class="btn btn-outline" title="Sign out">
+                    <span class="btn-icon">🚪</span>
+                    Sign Out
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <div class="sidebar-section">
+                    <div class="tenant-info" id="tenant-info">
+                        <span class="info-placeholder">Select a tenant to begin</span>
+                    </div>
+                </div>
+
+                <div id="admin-tenant-section" class="sidebar-section admin-tenant-section hidden">
+                    <span class="sidebar-label">Browse tenant sessions</span>
+                    <div
+                        class="admin-tenant-switcher"
+                        role="group"
+                        aria-label="Choose a tenant whose sessions to browse"
+                    >
+                        <button
+                            type="button"
+                            class="admin-tenant-btn"
+                            data-tenant-id="tenant-A"
+                            aria-pressed="false"
+                        >
+                            <span class="admin-tenant-code">Tenant A</span>
+                            <span class="admin-tenant-name">Acme Payments</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="admin-tenant-btn"
+                            data-tenant-id="tenant-B"
+                            aria-pressed="false"
+                        >
+                            <span class="admin-tenant-code">Tenant B</span>
+                            <span class="admin-tenant-name">Beta Devices</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="session-header">
+                        <span id="session-label" class="sidebar-label">Current Session</span>
+                        <button id="new-session-btn" class="btn btn-sm" title="Start new session">
+                            + New
+                        </button>
+                    </div>
+                    <div id="session-info" class="session-info">
+                        <span class="session-placeholder">No active session</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-section saved-sessions-section">
+                    <span id="saved-sessions-label" class="sidebar-label">Saved Sessions</span>
+                    <div id="session-list" class="session-list" aria-live="polite">
+                        <span class="session-list-placeholder">Sign in to view saved sessions</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <!-- Messages -->
+                <div id="chat-messages" class="chat-messages">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">💬</div>
+                        <h2>Welcome to Pooled Multi-Tenant Architecture RAG Chatbot Demo</h2>
+                        <p>Tenant A's basic knowledge base covers only <strong>payment issues, refunds, and returns</strong>.</p>
+                        <p>Try asking a simple question, i.e.:<br><em>Can I pay with PayPal?</em>, or<br><em>How many days do I have to return an item?</em>, etc.</p>
+                    </div>
+                </div>
+
+                <!-- Error Display -->
+                <div id="error-display" class="error-display hidden">
+                    <span class="error-icon">⚠️</span>
+                    <span id="error-text"></span>
+                    <button id="error-dismiss" class="error-dismiss">✕</button>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div id="admin-readonly-note" class="admin-readonly-note hidden">
+                        <span aria-hidden="true">🛡️</span>
+                        Administrator session access is read-only.
+                    </div>
+                    <span
+                        id="loading-indicator"
+                        class="loading-indicator hidden"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        <span class="spinner" aria-hidden="true"></span>
+                        Generating response...
+                    </span>
+                    <div class="input-wrapper">
+                        <textarea
+                            id="message-input"
+                            class="message-input"
+                            placeholder="Ask a question related to tenant's knowledge base..."
+                            rows="1"
+                            maxlength="4000"
+                        ></textarea>
+                        <button id="send-btn" class="send-btn" disabled title="Send message">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <span id="char-count" class="char-count">0 / 4000</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js?v={{ app_version }}"></script>
+</body>
+</html>

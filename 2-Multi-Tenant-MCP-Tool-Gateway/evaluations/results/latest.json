@@ -1,0 +1,124 @@
+{
+  "profile": "evaluations/tenant_a_gateway.xml",
+  "mode": "deterministic-injected-test-doubles",
+  "generated_at": "2026-08-01T05:53:35.195955+00:00",
+  "metrics": {
+    "passed": 10,
+    "total": 10,
+    "exact_match": 1.0
+  },
+  "cases": [
+    {
+      "case": 1,
+      "question": "Using only records visible to the authenticated Tenant A account, compare every order amount. Which order has the smallest amount? Return only its order ID.",
+      "expected": "A-1002",
+      "actual": "A-1002",
+      "passed": true,
+      "tools": [
+        "query_orders"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 2,
+      "question": "Inspect all visible Tenant A order records and determine which one was updated most recently. Return only its order ID.",
+      "expected": "A-1003",
+      "actual": "A-1003",
+      "passed": true,
+      "tools": [
+        "query_orders"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 3,
+      "question": "Among the authenticated tenant's visible properties, find the record that is neither active nor inactive. Return only its city.",
+      "expected": "Liverpool",
+      "actual": "Liverpool",
+      "passed": true,
+      "tools": [
+        "query_properties"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 4,
+      "question": "Compare the visible Tenant A properties in active status. Which property comes first by property ID? Return only the property ID.",
+      "expected": "PA-101",
+      "actual": "PA-101",
+      "passed": true,
+      "tools": [
+        "query_properties"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 5,
+      "question": "Retrieve every visible Tenant A order, sum the monetary amounts without currency conversion, and format the result with two decimal places.",
+      "expected": "241.50",
+      "actual": "241.50",
+      "passed": true,
+      "tools": [
+        "query_orders"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 6,
+      "question": "Inspect all visible Tenant A properties and count their distinct cities. Return only the integer.",
+      "expected": "3",
+      "actual": "3",
+      "passed": true,
+      "tools": [
+        "query_properties"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 7,
+      "question": "For Tenant A, count orders whose status is paid, refunded, or returned. Separately count properties whose status is active or inactive. Are the counts equal? Return True or False.",
+      "expected": "True",
+      "actual": "True",
+      "passed": true,
+      "tools": [
+        "query_orders",
+        "query_properties"
+      ],
+      "source_count": 6
+    },
+    {
+      "case": 8,
+      "question": "Compare the earliest and latest update dates across all visible Tenant A orders. How many calendar days separate them? Return only the integer.",
+      "expected": "6",
+      "actual": "6",
+      "passed": true,
+      "tools": [
+        "query_orders"
+      ],
+      "source_count": 5
+    },
+    {
+      "case": 9,
+      "question": "Find the visible Tenant A order still waiting on a refund and the property currently under maintenance. Return their IDs in order-id/property-id format.",
+      "expected": "A-1002/PA-102",
+      "actual": "A-1002/PA-102",
+      "passed": true,
+      "tools": [
+        "query_orders",
+        "query_properties"
+      ],
+      "source_count": 6
+    },
+    {
+      "case": 10,
+      "question": "Among visible Tenant A orders that have reached paid or refunded status, which has the larger amount? Return only the status of that record.",
+      "expected": "refunded",
+      "actual": "refunded",
+      "passed": true,
+      "tools": [
+        "query_orders"
+      ],
+      "source_count": 5
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+tenant_id: tenant-A
+persona: "Acme's concise payments operations assistant."
+allowed_tools:
+  - query_orders
+  - query_rag
+guardrails:
+  - "Read only; never mutate order or account state."
+  - "Use only sources and records returned inside tenant-A scope."
+require_plan_approval: true
